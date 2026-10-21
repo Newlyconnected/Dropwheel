@@ -49,6 +49,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-## Windows/Linux desktop edition
+## Windows/Linux desktop edition (OG Converter)
 
-The independently authored Python/Qt desktop edition uses Pillow (HPND), pypdf (BSD-3-Clause), PySide6/Shiboken and Qt (LGPLv3/GPLv3 options), Python (PSF) and PyInstaller (GPL with bootloader distribution exception). Exact pins are in `Desktop/requirements.txt`; portable builds include dependency versions and license texts under `licenses/`, and the corresponding application source under `source/`. Qt remains dynamically linked. Optional FFmpeg is installed and selected by the user and is not redistributed. Its build-specific licenses apply.
+Source: https://github.com/Dr-At0mic/og-converter
+Imported revision: 1.5.0 (21 October 2026)
+Copyright (C) 2026 Anandhu Suresh, with contributions by Mahesh P S and Bijo Prasad. GPL-3.0 license: `Desktop/LICENSE`.
+
+The Windows and Linux edition in `Desktop/` is based on OG Converter. Dropwheel changes include the product name, project and namespace names, application identifiers, update and repository links, and credits. Original copyright and license notices are preserved.
+
+Bundled .NET libraries: SharpZipLib, SharpCompress, ZstdSharp, K4os.Compression.LZ4, PDFsharp 6.2.4 and Konscious Argon2 (MIT), Markdig (BSD-2-Clause), PdfPig (Apache-2.0), System.Security.Cryptography.Pkcs (MIT). The Linux build also uses Avalonia and Tmds.DBus.Protocol (MIT), the Inter font (SIL OFL 1.1) and a subset of Microsoft Fluent UI System Icons (MIT, see `Desktop/src/Dropwheel.Linux/Assets/Fonts/`).
+
+Installed or downloaded only when the user asks: FFmpeg (LGPL/GPL), LibreOffice (MPL), 7-Zip (LGPL), WinRAR (proprietary shareware) and Guetzli (Apache-2.0). These are not redistributed with Dropwheel.

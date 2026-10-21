@@ -1,0 +1,10 @@
+{
+  "uuid": "dropwheel@newlyconnected.github.io",
+  "name": "Dropwheel",
+  "description": "Drag-and-tap helper for Dropwheel: while dragging a file, tap Shift, Ctrl, Alt or Super to open the Dropwheel wheel at the cursor. Sends the key taps to the Dropwheel app over D-Bus.",
+  "shell-version": [
+    "50"
+  ],
+  "url": "https://github.com/Newlyconnected/Dropwheel",
+  "version": 2
+}

@@ -1,23 +1,21 @@
 # Dropwheel
 
-A local file converter and toolbox for **macOS**, with an early **Windows/Linux desktop edition**, by **Abdul Razzaq**.
+A local file converter and toolbox for **macOS**, with a **Windows edition** and a **Linux beta**, by **Abdul Razzaq**.
 Local processing, no account, no subscription. GPL-3.0-only. Safety limits apply.
 
 **Mac status: 0.1.9 developer trial — ad-hoc signed, not Apple-notarized.** This is an independent project. It builds on Open Tangerine by Sintax Error Private Limited and on [Satsuma](https://github.com/plyght/satsuma), with its MIT attribution preserved. See [limitations](#limitations).
 
-## Windows and Linux desktop edition
+## Windows and Linux edition
 
-The new **0.2.0 early desktop trial** is a separate implementation with a smaller feature set. [Download status and installation](https://newlyconnected.github.io/Dropwheel/#desktop) · [Desktop source and guide](Desktop/README.md) · [Windows/Linux build checks](https://github.com/Newlyconnected/Dropwheel/actions/workflows/desktop.yml).
+Dropwheel for Windows and Linux (**1.5.0**) is a native .NET app based on [OG Converter](https://github.com/Dr-At0mic/og-converter) by Anandhu Suresh, Mahesh P S and Bijo Prasad. Like the Mac app, it has a **global drag wheel**: drag a file anywhere, tap **Shift** to convert, **Ctrl** for tools or **Alt** for actions, and drop. [Download status and installation](https://newlyconnected.github.io/Dropwheel/#desktop) · [Windows/Linux source and guide](Desktop/README.md) · [Windows/Linux builds](https://github.com/Newlyconnected/Dropwheel/actions/workflows/desktop.yml).
 
 | Platform | Interface | Availability / requirements |
 |---|---|---|
 | macOS | Native menu bar, global drag wheel and notch | v0.1.9; macOS 26+, Apple silicon |
-| Windows | Batch file-drop window and progress panel | 0.2.0 early trial; Windows 10/11 x64; unsigned portable ZIP |
-| Linux | Batch file-drop window and progress panel | 0.2.0 early trial; x64 Ubuntu 24.04 / glibc 2.39+; portable tar.gz |
+| Windows | Global drag wheel, tray app and dashboard | 1.5.0; Windows 10 (1809+) / 11 x64; single unsigned `.exe` |
+| Linux (beta) | Drag wheel on GNOME, file-manager menus elsewhere, tray and dashboard | 1.5.0 beta; x64, glibc; `.tar.gz` |
 
-Desktop packages are published only after both CI jobs pass conversion tests and packaged startup/conversion checks. If the download page does not show a package yet, verification is still pending or the release could not be checked.
-
-Windows/Linux include image conversion, resize/rotate, image-to-PDF, PDF merge/split/text extraction, simple SRT/VTT, SHA-256 and optional FFmpeg media conversion. **No global Shift wheel, physical notch, HEIC/SVG, Office conversion, OCR or full Mac editor parity in this edition.** Drop files into its window. Each failed file is reported independently. Originals and existing outputs are preserved. Workers have limits but are not an OS security sandbox; use trusted files. [Detailed limits](Desktop/README.md#limits-and-safety).
+Windows and Linux convert images (including HEIC and SVG), video, audio, PDF, Word/Excel/PowerPoint, Markdown, web pages and archives, and add compression, crop and trim, OCR, PDF tools and password protection. Media, Office and some archive features use optional tools (FFmpeg, Office or LibreOffice, 7-Zip, WinRAR), which the app offers to install only when you ask. Everything runs locally. Windows/Linux releases are tagged `desktop-v…`; Mac releases are tagged `v…`. [Features and requirements](Desktop/README.md).
 
 The Mac-specific sections below describe the **Mac app**.
 
@@ -122,4 +120,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), [build statu
 
 ## License and attribution
 
-Dropwheel changes © 2026 Abdul Razzaq, licensed under **GPL-3.0-only**. Based on Open Tangerine © 2026 Sintax Error Private Limited, also GPL-3.0-only. See [LICENSE](LICENSE). Commercial use and sale are permitted under that license; distribution of covered derivatives requires corresponding source and the GPL terms. Upstream Satsuma code © 2026 plyght remains available under its original MIT terms, reproduced in [NativeApp/LICENSE](NativeApp/LICENSE). Contributors retain copyright in their contributions. The license does not grant rights to company names or logos.
+Dropwheel changes © 2026 Abdul Razzaq, licensed under **GPL-3.0-only**. Based on Open Tangerine © 2026 Sintax Error Private Limited, also GPL-3.0-only. The Windows/Linux edition in `Desktop/` is based on OG Converter © 2026 Anandhu Suresh, with Mahesh P S and Bijo Prasad, GPL-3.0; see [Desktop/LICENSE](Desktop/LICENSE). See [LICENSE](LICENSE). Commercial use and sale are permitted under that license; distribution of covered derivatives requires corresponding source and the GPL terms. Upstream Satsuma code © 2026 plyght remains available under its original MIT terms, reproduced in [NativeApp/LICENSE](NativeApp/LICENSE). Contributors retain copyright in their contributions. The license does not grant rights to company names or logos.

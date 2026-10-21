@@ -1,73 +1,188 @@
+# Builds the Windows and Linux edition in Desktop/: a self-contained Windows .exe and the Linux (beta) build.
+#
+# Every change to Desktop/ builds both and keeps them as workflow artifacts for testing.
+# To publish, add a "## [1.5.0]" section to Desktop/CHANGELOG.md (shown in the app's updater), then push a tag:
+#   git tag desktop-v1.5.0
+#   git push origin desktop-v1.5.0
+# Or run it from the Actions tab ("Run workflow") and enter a version.
+#
+# Desktop releases are never marked "latest", so the Mac app's update check keeps seeing the Mac releases.
+
 name: Windows and Linux desktop
+
 on:
   push:
     branches: [main]
-    paths: ['Desktop/**', '.github/workflows/desktop.yml']
+    paths: ["Desktop/**", ".github/workflows/desktop.yml"]
+    tags: ["desktop-v*.*.*"]
   pull_request:
-    paths: ['Desktop/**', '.github/workflows/desktop.yml']
+    paths: ["Desktop/**", ".github/workflows/desktop.yml"]
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (without the leading desktop-v)"
+        required: true
+        default: "1.5.0"
+
 permissions:
-  contents: read
+  contents: write # create the release and upload the files
+
+defaults:
+  run:
+    working-directory: Desktop
+
 jobs:
-  desktop:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-2025, ubuntu-24.04]
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 25
-    defaults:
-      run:
-        working-directory: Desktop
-    env:
-      QT_QPA_PLATFORM: offscreen
+  # Linux (beta): the single-file build, packed as .tar.gz so it keeps its executable bit.
+  linux:
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Linux Qt and media dependencies
-        if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y libegl1 libopengl0 libxcb-cursor0 libxkbcommon-x11-0 ffmpeg
-      - name: Windows media test dependency
-        if: runner.os == 'Windows'
-        run: choco install ffmpeg --no-progress -y
-      - name: Install pinned desktop dependencies
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve version
+        id: version
+        shell: bash
         run: |
-          python -m pip install --only-binary=:all: -r requirements.txt pyinstaller==6.22.3
-      - name: Conversion, safety and UI tests
-        run: python -m unittest discover -s tests -v
-      - name: Package portable app with source and licenses
-        run: python package.py
-      - name: Packaged smoke tests
-        run: python smoke_package.py
-      - uses: actions/upload-artifact@v4
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then version="${{ github.event.inputs.version }}";
+          elif [[ "${GITHUB_REF}" == refs/tags/desktop-v* ]]; then version="${GITHUB_REF_NAME#desktop-v}";
+          else version="0.0.0"; fi
+          if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then echo "Version '$version' must look like 1.5.0"; exit 1; fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
         with:
-          name: desktop-${{ runner.os }}
-          path: |
-            Desktop/dist/Dropwheel-*.zip
-            Desktop/dist/Dropwheel-*.tar.gz
-            Desktop/dist/Dropwheel-*.sha256
+          dotnet-version: "10.0.x"
+
+      - name: Publish single-file Linux build
+        run: >
+          dotnet publish src/Dropwheel.Linux/Dropwheel.Linux.csproj
+          -c Release -r linux-x64 --self-contained
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:Version=${{ steps.version.outputs.version }}
+          -o publish
+
+      - name: Package
+        shell: bash
+        run: |
+          name="dropwheel-v${{ steps.version.outputs.version }}-linux-x64.tar.gz"
+          mkdir -p dist
+          chmod +x publish/dropwheel
+          tar -czf "dist/$name" -C publish dropwheel
+          (cd dist && sha256sum "$name" > "$name.sha256")
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: Desktop/dist/
           if-no-files-found: error
-  publish:
-    needs: desktop
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: write
+
+  windows:
+    needs: linux
+    runs-on: windows-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: desktop-*
-          path: release-assets
-          merge-multiple: true
-      - name: Publish only after both platforms pass
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve version
+        id: version
+        shell: pwsh
         run: |
-          if gh release view desktop-v0.2.0 >/dev/null 2>&1; then
-            echo 'Version already exists; never replace published binaries silently.'
-            exit 0
-          fi
-          gh release create desktop-v0.2.0 release-assets/* --target "$GITHUB_SHA" --prerelease --title 'Windows and Linux 0.2.0 · Early desktop trial' --notes-file Desktop/RELEASE.md
+          $version = if ("${{ github.event_name }}" -eq "workflow_dispatch") { "${{ github.event.inputs.version }}" }
+                     elseif ("${{ github.ref }}" -like "refs/tags/desktop-v*") { "${{ github.ref_name }}".Substring("desktop-v".Length) }
+                     else { "0.0.0" }
+          if ($version -notmatch '^\d+\.\d+\.\d+$') { throw "Version '$version' must look like 1.5.0" }
+          $release = ("${{ github.event_name }}" -eq "workflow_dispatch") -or ("${{ github.ref }}" -like "refs/tags/desktop-v*")
+          "version=$version" >> $env:GITHUB_OUTPUT
+          "tag=desktop-v$version" >> $env:GITHUB_OUTPUT
+          "release=$($release.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+
+      # "What's new" comes from this version's section in Desktop/CHANGELOG.md; the app shows it before updating.
+      - name: Read release notes from CHANGELOG.md
+        if: steps.version.outputs.release == 'true'
+        shell: pwsh
+        run: |
+          $version = "${{ steps.version.outputs.version }}"
+          $lines = Get-Content CHANGELOG.md -Encoding utf8
+          $start = -1
+          for ($i = 0; $i -lt $lines.Count; $i++) {
+            if ($lines[$i] -match "^##\s+\[?v?$([regex]::Escape($version))\]?(\s|$)") { $start = $i + 1; break }
+          }
+          if ($start -lt 0) { throw "Desktop/CHANGELOG.md has no '## [$version]' section. Add what changed in this version, then tag again." }
+          $end = $lines.Count
+          for ($i = $start; $i -lt $lines.Count; $i++) { if ($lines[$i] -match '^##\s') { $end = $i; break } }
+          $notes = if ($end -gt $start) { ($lines[$start..($end - 1)] -join "`n").Trim() } else { "" }
+          if (-not $notes) { throw "The '## [$version]' section in Desktop/CHANGELOG.md is empty." }
+          $v = "v$version"
+          @(
+            "## Dropwheel $v for Windows x64 and Linux x64 (beta)", "",
+            "**Windows:** download **dropwheel-$v-win-x64.exe** and run it; no install or .NET runtime needed. Already installed? Use **Settings > System > Check for updates**.", "",
+            "**Linux (beta):** download **dropwheel-$v-linux-x64.tar.gz**, then ``tar -xzf`` it and run ``./dropwheel``. Install it from **Settings > System**, and on GNOME turn on drag-and-tap in **Settings > Desktop integration**.", "",
+            "## What's new", "", $notes, "",
+            "## Linux is in beta", "",
+            "Everything works except custom templates that ship a renderer plugin (``.dll``): plugins are Windows only for now, and such templates are drawn with the classic ring on Linux. Drag-and-tap needs GNOME (other desktops: the file manager's right-click menu), and Linux copies don't update themselves yet.", "",
+            "## Requirements", "",
+            "- Windows: Windows 10 (1809) or later. Media features (video, audio, GIF, WebP/AVIF/JPEG XL) need FFmpeg: ``winget install Gyan.FFmpeg``",
+            "- Linux: 64-bit, glibc. Optional tools (Ubuntu): ``sudo apt install ffmpeg libreoffice chromium tesseract-ocr tesseract-ocr-eng 7zip libarchive-tools wl-clipboard xclip poppler-utils libheif-examples``",
+            "- Verify a download with its ``.sha256`` file: ``Get-FileHash <file> -Algorithm SHA256`` on Windows, ``sha256sum -c <file>.sha256`` on Linux", "",
+            "Based on OG Converter by Anandhu Suresh, Mahesh P S and Bijo Prasad (GPL-3.0)."
+          ) -join "`n" | Out-File -Encoding utf8 release-notes.md
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Publish single-file exe
+        shell: pwsh
+        run: >
+          dotnet publish src/Dropwheel.Windows/Dropwheel.Windows.csproj
+          -c Release -r win-x64 --self-contained
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:Version=${{ steps.version.outputs.version }}
+          -o publish
+
+      - name: Package release assets
+        id: assets
+        shell: pwsh
+        run: |
+          $name = "dropwheel-v${{ steps.version.outputs.version }}-win-x64.exe"
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item publish/dropwheel.exe "dist/$name"
+          $hash = (Get-FileHash "dist/$name" -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  $name" | Out-File -Encoding ascii "dist/$name.sha256"
+          "exe=Desktop/dist/$name" >> $env:GITHUB_OUTPUT
+          "sha=Desktop/dist/$name.sha256" >> $env:GITHUB_OUTPUT
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: Desktop/dist/
+          if-no-files-found: error
+
+      - name: Download the Linux build
+        if: steps.version.outputs.release == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: linux
+          path: dist-linux
+
+      - name: Create GitHub release
+        if: steps.version.outputs.release == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: Dropwheel ${{ steps.version.outputs.tag }} for Windows and Linux
+          target_commitish: ${{ github.sha }}
+          make_latest: false
+          body_path: Desktop/release-notes.md
+          files: |
+            ${{ steps.assets.outputs.exe }}
+            ${{ steps.assets.outputs.sha }}
+            dist-linux/*
