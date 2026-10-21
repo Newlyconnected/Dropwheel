@@ -676,66 +676,6 @@
                             </Border>
                         </Grid>
 
-                        <!-- Developers -->
-                        <Border Classes="Card" Padding="24,22" Margin="0,0,0,16">
-                            <StackPanel>
-                                <TextBlock Text="CREDITS" Classes="Overline" Margin="0,0,0,14" />
-                                <UniformGrid Columns="3">
-                                    <UniformGrid.Styles>
-                                        <Style Selector="Border.DevAvatar">
-                                            <Setter Property="Width" Value="40" />
-                                            <Setter Property="Height" Value="40" />
-                                            <Setter Property="CornerRadius" Value="20" />
-                                            <Setter Property="Background" Value="{DynamicResource AccentSubtleBrush}" />
-                                            <Setter Property="Margin" Value="0,0,12,0" />
-                                        </Style>
-                                        <Style Selector="Border.DevAvatar > TextBlock">
-                                            <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />
-                                            <Setter Property="FontWeight" Value="SemiBold" />
-                                            <Setter Property="FontSize" Value="14" />
-                                            <Setter Property="HorizontalAlignment" Value="Center" />
-                                            <Setter Property="VerticalAlignment" Value="Center" />
-                                        </Style>
-                                    </UniformGrid.Styles>
-
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,12,0">
-                                        <Border Classes="DevAvatar">
-                                            <TextBlock Text="AS" />
-                                        </Border>
-                                        <StackPanel VerticalAlignment="Center">
-                                            <TextBlock Text="Anandhu Suresh" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
-                                            <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
-                                                <Button Theme="{StaticResource LinkButton}" Content="Portfolio ↗" FontSize="12" Tag="https://dr-at0mic.github.io/" Click="OnLinkClick" ToolTip.Tip="https://dr-at0mic.github.io/" />
-                                                <TextBlock Text="  ·  " FontSize="12" Foreground="{DynamicResource TextTertiaryBrush}" />
-                                                <Button Theme="{StaticResource LinkButton}" Content="GitHub ↗" FontSize="12" Tag="https://github.com/Dr-At0mic" Click="OnLinkClick" ToolTip.Tip="https://github.com/Dr-At0mic" />
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal">
-                                        <Border Classes="DevAvatar">
-                                            <TextBlock Text="MP" />
-                                        </Border>
-                                        <StackPanel VerticalAlignment="Center">
-                                            <TextBlock Text="Mahesh P S" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
-                                            <Button Theme="{StaticResource LinkButton}" Content="GitHub ↗" FontSize="12" Margin="0,2,0,0" HorizontalAlignment="Left"
-                                                    Tag="https://github.com/Yet-Zio" Click="OnLinkClick" ToolTip.Tip="https://github.com/Yet-Zio" />
-                                        </StackPanel>
-                                    </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal">
-                                        <Border Classes="DevAvatar">
-                                            <TextBlock Text="BP" />
-                                        </Border>
-                                        <StackPanel VerticalAlignment="Center">
-                                            <TextBlock Text="Bijo Prasad" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
-                                            <Button Theme="{StaticResource LinkButton}" Content="GitHub ↗" FontSize="12" Margin="0,2,0,0" HorizontalAlignment="Left"
-                                                    Tag="https://github.com/hikigaya007" Click="OnLinkClick" ToolTip.Tip="https://github.com/hikigaya007" />
-                                        </StackPanel>
-                                    </StackPanel>
-                                </UniformGrid>
-                            </StackPanel>
-                        </Border>
 
                         <TextBlock Classes="Caption" Foreground="{DynamicResource TextTertiaryBrush}" FontSize="12" TextAlignment="Center" Margin="0,8,0,0"
                                    Text="Dropwheel by Abdul Razzaq. GPL-3.0-only." />

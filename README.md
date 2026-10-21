@@ -7,7 +7,7 @@ Local processing, no account, no subscription. GPL-3.0-only. Safety limits apply
 
 ## Windows and Linux edition
 
-Dropwheel for Windows and Linux (**1.5.0**) is a native .NET app based on [OG Converter](https://github.com/Dr-At0mic/og-converter) by Anandhu Suresh, Mahesh P S and Bijo Prasad. Like the Mac app, it has a **global drag wheel**: drag a file anywhere, tap **Shift** to convert, **Ctrl** for tools or **Alt** for actions, and drop. [Download status and installation](https://newlyconnected.github.io/Dropwheel/#desktop) · [Windows/Linux source and guide](Desktop/README.md) · [Windows/Linux builds](https://github.com/Newlyconnected/Dropwheel/actions/workflows/desktop.yml).
+Dropwheel for Windows and Linux (**1.5.0**) is a native .NET app. Like the Mac app, it has a **global drag wheel**: drag a file anywhere, tap **Shift** to convert, **Ctrl** for tools or **Alt** for actions, and drop. [Download status and installation](https://newlyconnected.github.io/Dropwheel/#desktop) · [Windows/Linux source and guide](Desktop/README.md) · [Windows/Linux builds](https://github.com/Newlyconnected/Dropwheel/actions/workflows/desktop.yml).
 
 | Platform | Interface | Availability / requirements |
 |---|---|---|
@@ -120,4 +120,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), [build statu
 
 ## License and attribution
 
-Dropwheel changes © 2026 Abdul Razzaq, licensed under **GPL-3.0-only**. Based on Open Tangerine © 2026 Sintax Error Private Limited, also GPL-3.0-only. The Windows/Linux edition in `Desktop/` is based on OG Converter © 2026 Anandhu Suresh, with Mahesh P S and Bijo Prasad, GPL-3.0; see [Desktop/LICENSE](Desktop/LICENSE). See [LICENSE](LICENSE). Commercial use and sale are permitted under that license; distribution of covered derivatives requires corresponding source and the GPL terms. Upstream Satsuma code © 2026 plyght remains available under its original MIT terms, reproduced in [NativeApp/LICENSE](NativeApp/LICENSE). Contributors retain copyright in their contributions. The license does not grant rights to company names or logos.
+Dropwheel changes © 2026 Abdul Razzaq, licensed under **GPL-3.0-only**. Based on Open Tangerine © 2026 Sintax Error Private Limited, also GPL-3.0-only. Copyright notices for the Windows/Linux edition are in [Desktop/LICENSE](Desktop/LICENSE) and [NOTICE](NOTICE). See [LICENSE](LICENSE). Commercial use and sale are permitted under that license; distribution of covered derivatives requires corresponding source and the GPL terms. Upstream Satsuma code © 2026 plyght remains available under its original MIT terms, reproduced in [NativeApp/LICENSE](NativeApp/LICENSE). Contributors retain copyright in their contributions. The license does not grant rights to company names or logos.

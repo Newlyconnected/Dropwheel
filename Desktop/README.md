@@ -1,5 +1,5 @@
 # Dropwheel ⚡
-> The zero-click offline file converter for Windows and Linux (beta), by Abdul Razzaq. Based on [OG Converter](https://github.com/Dr-At0mic/og-converter).
+> The zero-click offline file converter for Windows and Linux (beta), by Abdul Razzaq.
 
 *Powered by pure boredom, caffeine, and living in a world with no superpowers, no magic, and no zombie apocalypse to save us from desk jobs.*
 
@@ -556,13 +556,9 @@ Bug reports, ideas and pull requests for both versions are welcome. See [CONTRIB
 
 ---
 
-## 👨‍💻 Credits
+## 👨‍💻 Developer
 
-Dropwheel for Windows and Linux is maintained by **Abdul Razzaq** ([GitHub](https://github.com/Newlyconnected)). It is based on [OG Converter](https://github.com/Dr-At0mic/og-converter), created by:
-
-- **Anandhu Suresh**: [Portfolio](https://dr-at0mic.github.io/) · [GitHub](https://github.com/Dr-At0mic)
-- **Mahesh P S**: [GitHub](https://github.com/Yet-Zio)
-- **Bijo Prasad**: [GitHub](https://github.com/hikigaya007)
+Dropwheel for Windows and Linux is made by **Abdul Razzaq** ([GitHub](https://github.com/Newlyconnected)). Copyright and third-party notices are in [LICENSE](LICENSE), [NOTICE](../NOTICE) and [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
 
 ---
 

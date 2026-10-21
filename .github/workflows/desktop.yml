@@ -132,8 +132,7 @@ jobs:
             "## Requirements", "",
             "- Windows: Windows 10 (1809) or later. Media features (video, audio, GIF, WebP/AVIF/JPEG XL) need FFmpeg: ``winget install Gyan.FFmpeg``",
             "- Linux: 64-bit, glibc. Optional tools (Ubuntu): ``sudo apt install ffmpeg libreoffice chromium tesseract-ocr tesseract-ocr-eng 7zip libarchive-tools wl-clipboard xclip poppler-utils libheif-examples``",
-            "- Verify a download with its ``.sha256`` file: ``Get-FileHash <file> -Algorithm SHA256`` on Windows, ``sha256sum -c <file>.sha256`` on Linux", "",
-            "Based on OG Converter by Anandhu Suresh, Mahesh P S and Bijo Prasad (GPL-3.0)."
+            "- Verify a download with its ``.sha256`` file: ``Get-FileHash <file> -Algorithm SHA256`` on Windows, ``sha256sum -c <file>.sha256`` on Linux"
           ) -join "`n" | Out-File -Encoding utf8 release-notes.md
 
       - name: Setup .NET 10
