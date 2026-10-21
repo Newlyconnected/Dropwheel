@@ -1,6 +1,6 @@
 # Dropwheel
 
-> Free, open-source native macOS file converter and toolbox by Abdul Razzaq. GPL-3.0-only. Based on Open Tangerine by Sintax Error Private Limited. Independent of Apple.
+> Free, open-source native macOS file converter and toolbox by Abdul Razzaq. GPL-3.0-only. Independent of Apple.
 
 ## Authoritative links
 - [Website](https://newlyconnected.github.io/Dropwheel/): features, limitations and manual installation.

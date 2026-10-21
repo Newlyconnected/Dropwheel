@@ -3,7 +3,7 @@
 A local file converter and toolbox for **macOS**, with a **Windows edition** and a **Linux beta**, by **Abdul Razzaq**.
 Local processing, no account, no subscription. GPL-3.0-only. Safety limits apply.
 
-**Mac status: 0.1.9 developer trial — ad-hoc signed, not Apple-notarized.** This is an independent project. It builds on Open Tangerine by Sintax Error Private Limited and on [Satsuma](https://github.com/plyght/satsuma), with its MIT attribution preserved. See [limitations](#limitations).
+**Mac status: 0.1.9 developer trial — ad-hoc signed, not Apple-notarized.** This is an independent project. It builds on [Satsuma](https://github.com/plyght/satsuma), with its MIT attribution preserved. See [limitations](#limitations).
 
 ## Windows and Linux edition
 
@@ -66,7 +66,7 @@ Notch progress is now the default, with an original animated citrus companion, c
 
 ## What changed in 0.1.1
 
-Roomier settings with sidebar navigation, orange selection highlights, contextual headers, animated file artwork, softer transitions and a larger menu-bar icon. Motion responds to macOS Reduce Motion. See [design notes](docs/DESIGN.md) for validation status.
+Roomier settings with sidebar navigation, orange selection highlights, contextual headers, animated file artwork, softer transitions and a larger menu-bar icon. Motion responds to macOS Reduce Motion.
 
 ## Try it
 
@@ -114,10 +114,10 @@ The active format matrix describes **176 potential routes** and **25 tool types*
 - `NativeApp/Sources/`: shipping trial implementation (SwiftUI/AppKit, ImageIO, PDFKit, AVFoundation).
 - `NativeApp/Tests/`: inherited deterministic tests and real conversion regression tests.
 - `scripts/`: reproducible compiler, test and packaging entry points.
-- `docs/PRD.md`: product direction; roadmap items are not current capabilities.
+- `Desktop/`: Windows app and Linux beta (.NET); see [Desktop/README.md](Desktop/README.md).
 
 See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), [build status](docs/BUILD-STATUS.md), and [third-party notices](THIRD_PARTY_NOTICES.md).
 
 ## License and attribution
 
-Dropwheel changes © 2026 Abdul Razzaq, licensed under **GPL-3.0-only**. Based on Open Tangerine © 2026 Sintax Error Private Limited, also GPL-3.0-only. Copyright notices for the Windows/Linux edition are in [Desktop/LICENSE](Desktop/LICENSE) and [NOTICE](NOTICE). See [LICENSE](LICENSE). Commercial use and sale are permitted under that license; distribution of covered derivatives requires corresponding source and the GPL terms. Upstream Satsuma code © 2026 plyght remains available under its original MIT terms, reproduced in [NativeApp/LICENSE](NativeApp/LICENSE). Contributors retain copyright in their contributions. The license does not grant rights to company names or logos.
+Dropwheel © 2026 Abdul Razzaq, licensed under **GPL-3.0-only**. Copyright notices for the Windows/Linux edition are in [Desktop/LICENSE](Desktop/LICENSE) and [NOTICE](NOTICE). See [LICENSE](LICENSE). Commercial use and sale are permitted under that license; distribution of covered derivatives requires corresponding source and the GPL terms. Upstream Satsuma code © 2026 plyght remains available under its original MIT terms, reproduced in [NativeApp/LICENSE](NativeApp/LICENSE). Contributors retain copyright in their contributions. The license does not grant rights to company names or logos.

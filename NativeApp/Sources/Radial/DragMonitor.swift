@@ -8,10 +8,10 @@ protocol DragMonitorDelegate: AnyObject {
 }
 
 enum DragDebug {
-    static let enabled = ProcessInfo.processInfo.environment["OPEN_TANGERINE_DEBUG_DRAG"] != nil
+    static let enabled = ProcessInfo.processInfo.environment["DROPWHEEL_DEBUG_DRAG"] != nil
     private static let handle: FileHandle? = {
         guard enabled else { return nil }
-        let path = ProcessInfo.processInfo.environment["OPEN_TANGERINE_DEBUG_DRAG"].flatMap { $0.hasPrefix("/") ? $0 : nil } ?? "/tmp/dropwheel-drag.log"
+        let path = ProcessInfo.processInfo.environment["DROPWHEEL_DEBUG_DRAG"].flatMap { $0.hasPrefix("/") ? $0 : nil } ?? "/tmp/dropwheel-drag.log"
         if !FileManager.default.fileExists(atPath: path) { FileManager.default.createFile(atPath: path, contents: nil) }
         let handle = FileHandle(forWritingAtPath: path)
         handle?.seekToEndOfFile()

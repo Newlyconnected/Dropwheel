@@ -321,7 +321,7 @@ struct SettingsView: View {
                 }
                 .font(.system(size: 13))
                 .padding(.top, 2)
-                Text("GPL-3.0-only · Based on Open Tangerine by Sintax Error\nand Satsuma by plyght (MIT). Some features remain experimental.")
+                Text("GPL-3.0-only · Includes Satsuma by plyght (MIT).\nSome features remain experimental.")
                     .font(.system(size: 10)).foregroundStyle(.secondary)
                     .multilineTextAlignment(.center).lineSpacing(3)
             }

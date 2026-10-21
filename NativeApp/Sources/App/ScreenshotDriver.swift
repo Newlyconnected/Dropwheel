@@ -15,10 +15,10 @@ private func dumpBacktrace(_ signal: Int32) {
 
 @MainActor
 enum ScreenshotDriver {
-    static var isEnabled: Bool { ProcessInfo.processInfo.environment["OPEN_TANGERINE_SCREENSHOTS"] != nil }
+    static var isEnabled: Bool { ProcessInfo.processInfo.environment["DROPWHEEL_SCREENSHOTS"] != nil }
 
     static func run(radial: RadialController) {
-        guard let directory = ProcessInfo.processInfo.environment["OPEN_TANGERINE_SCREENSHOTS"].map({ URL(fileURLWithPath: $0) }) else { return }
+        guard let directory = ProcessInfo.processInfo.environment["DROPWHEEL_SCREENSHOTS"].map({ URL(fileURLWithPath: $0) }) else { return }
         for sig in [SIGSEGV, SIGBUS, SIGABRT, SIGILL, SIGTRAP] { signal(sig, dumpBacktrace) }
         NSSetUncaughtExceptionHandler { exception in
             fputs("uncaught exception \(exception.name.rawValue): \(exception.reason ?? "")\n\(exception.callStackSymbols.joined(separator: "\n"))\n", stderr)
