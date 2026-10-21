@@ -89,7 +89,7 @@
                     <!-- Brand -->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0" IsHitTestVisible="False">
                         <Border Width="22" Height="22" CornerRadius="6" Margin="0,0,10,0" Background="{DynamicResource BrandBrush}">
-                            <TextBlock Text="DW" Foreground="{DynamicResource OnAccentBrush}" FontWeight="Bold" FontSize="9.5" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Viewbox Stretch="Uniform"><Canvas Width="100" Height="100"><Path Data="M28.19,29.40 A30,30 0 0 1 71.81,29.40 M78.75,41.41 A30,30 0 0 1 56.94,79.19 M43.06,79.19 A30,30 0 0 1 21.25,41.41" Stroke="{DynamicResource OnAccentBrush}" StrokeThickness="8" StrokeLineCap="Round" /><Path Data="M50,36 C50,36 41,47 41,53 A9,9 0 0 0 59,53 C59,47 50,36 50,36 Z" Fill="{DynamicResource OnAccentBrush}" /></Canvas></Viewbox>
                         </Border>
                         <TextBlock Text="Dropwheel" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center" />
                     </StackPanel>
@@ -608,7 +608,7 @@
                         <!-- Identity -->
                         <Grid Margin="0,0,0,24" ColumnDefinitions="Auto,*,Auto">
                             <Border Width="56" Height="56" CornerRadius="14" Margin="0,0,18,0" Background="{DynamicResource BrandBrush}">
-                                <TextBlock Text="DW" Foreground="{DynamicResource OnAccentBrush}" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Viewbox Stretch="Uniform"><Canvas Width="100" Height="100"><Path Data="M28.19,29.40 A30,30 0 0 1 71.81,29.40 M78.75,41.41 A30,30 0 0 1 56.94,79.19 M43.06,79.19 A30,30 0 0 1 21.25,41.41" Stroke="{DynamicResource OnAccentBrush}" StrokeThickness="8" StrokeLineCap="Round" /><Path Data="M50,36 C50,36 41,47 41,53 A9,9 0 0 0 59,53 C59,47 50,36 50,36 Z" Fill="{DynamicResource OnAccentBrush}" /></Canvas></Viewbox>
                             </Border>
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock Text="Dropwheel" Classes="H1" />
