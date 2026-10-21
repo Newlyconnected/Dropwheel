@@ -4,7 +4,7 @@
 # To publish, add a "## [1.5.0]" section to Desktop/CHANGELOG.md (shown in the app's updater), then push a tag:
 #   git tag desktop-v1.5.0
 #   git push origin desktop-v1.5.0
-# Or run it from the Actions tab ("Run workflow") and enter a version.
+# Or run it from the Actions tab ("Run workflow"), enter a version and tick "Publish a GitHub release".
 #
 # Desktop releases are never marked "latest", so the Mac app's update check keeps seeing the Mac releases.
 
@@ -20,9 +20,13 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to release (without the leading desktop-v)"
+        description: "Version to build (without the leading desktop-v)"
         required: true
         default: "1.5.0"
+      publish:
+        description: "Publish a GitHub release (off: test build only, download it from the run's artifacts)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write # create the release and upload the files
@@ -96,7 +100,7 @@ jobs:
                      elseif ("${{ github.ref }}" -like "refs/tags/desktop-v*") { "${{ github.ref_name }}".Substring("desktop-v".Length) }
                      else { "0.0.0" }
           if ($version -notmatch '^\d+\.\d+\.\d+$') { throw "Version '$version' must look like 1.5.0" }
-          $release = ("${{ github.event_name }}" -eq "workflow_dispatch") -or ("${{ github.ref }}" -like "refs/tags/desktop-v*")
+          $release = ("${{ github.event.inputs.publish }}" -eq "true") -or ("${{ github.ref }}" -like "refs/tags/desktop-v*")
           "version=$version" >> $env:GITHUB_OUTPUT
           "tag=desktop-v$version" >> $env:GITHUB_OUTPUT
           "release=$($release.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
